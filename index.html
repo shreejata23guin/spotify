@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Spotify - Your Favourite Music is Here</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background-color: #121212;
+      color: white;
+    }
+
+    nav {
+      background-color: black;
+      padding: 15px 30px;
+    }
+
+    nav ul {
+      list-style: none;
+      display: flex;
+      align-items: center;
+    }
+
+    nav ul li {
+      margin-right: 30px;
+      font-size: 18px;
+      cursor: pointer;
+    }
+
+    nav ul li.brand {
+      display: flex;
+      align-items: center;
+      font-size: 22px;
+      font-weight: bold;
+    }
+
+    nav ul li.brand img {
+      height: 30px;
+      margin-right: 10px;
+    }
+
+    .main-container {
+      text-align: center;
+      padding: 40px 20px;
+      background: url('https://i.pinimg.com/736x/be/1e/da/be1eda064654039297578561348b68d2.jpg') no-repeat center center/cover;
+      min-height: 80vh;
+      position: relative;
+    }
+
+    .main-container h1 {
+      font-size: 28px;
+      margin-bottom: 30px;
+      color: white;
+      text-shadow: 0 0 5px black;
+    }
+
+    .song-info {
+      margin-bottom: 15px;
+      font-size: 18px;
+    }
+
+    .controls i {
+      font-size: 28px;
+      margin: 0 15px;
+      cursor: pointer;
+    }
+
+    #myProgressBar {
+      width: 80%;
+      margin-top: 20px;
+      accent-color: #1DB954;
+    }
+
+    .album-floating-box {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: white;
+      border-radius: 12px;
+      padding: 10px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.3);
+    }
+
+    .album-floating-box img {
+      height: 60px;
+      width: 60px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li class="brand">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Spotify_icon.svg" alt="Spotify Logo"/>
+        Spotify
+      </li>
+      <li>Home</li>
+      <li>About</li>
+    </ul>
+  </nav>
+
+  <div class="main-container">
+    <h1>Best of Ed Sheeran - No Copyright Sound</h1>
+
+    <div class="song-info">
+      <p>🎵 Perfect</p>
+      <span>⏱ 04:42</span>
+      <audio id="audioPlayer" src="Perfect-(Mr-Jat.in).mp3"></audio>
+    </div>
+
+    <div class="controls">
+      <i class="fas fa-backward"></i>
+      <i class="fas fa-play-circle play-button" id="masterPlay"></i>
+      <i class="fas fa-forward"></i>
+    </div>
+
+    <input type="range" id="myProgressBar" min="0" max="100" value="0" />
+  </div>
+
+  <div class="album-floating-box">
+    <img src="ab67616d0000b273ba5db46f4b838ef6027e6f96.jpeg" alt="Album Cover" />
+  </div>
+
+  <script>
+    const audio = document.getElementById("audioPlayer");
+    const masterPlay = document.getElementById("masterPlay");
+    const progressBar = document.getElementById("myProgressBar");
+
+    // Toggle play/pause
+    masterPlay.addEventListener("click", () => {
+      if (audio.paused || audio.currentTime <= 0) {
+        audio.play();
+        masterPlay.classList.remove("fa-play-circle");
+        masterPlay.classList.add("fa-pause-circle");
+      } else {
+        audio.pause();
+        masterPlay.classList.remove("fa-pause-circle");
+        masterPlay.classList.add("fa-play-circle");
+      }
+    });
+
+    // Update progress bar as audio plays
+    audio.addEventListener("timeupdate", () => {
+      const progress = (audio.currentTime / audio.duration) * 100;
+      progressBar.value = progress;
+    });
+
+    // Seek on progress bar change
+    progressBar.addEventListener("input", () => {
+      audio.currentTime = (progressBar.value * audio.duration) / 100;
+    });
+  </script>
+  <script src="script.js"></script>
+<script src="script.js" defer></script>
+
+</body>
+</html>
